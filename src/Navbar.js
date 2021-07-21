@@ -4,10 +4,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-import Slider, { Range } from "rc-slider";
+import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Navbar.css";
-import { VerticalAlignBottom } from "@material-ui/icons";
+// import { VerticalAlignBottom } from "@material-ui/icons";
 
 class Navbar extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Navbar extends Component {
     this.props.handleChange(e.target.value);
   }
   render() {
-    let { level, changeLevels, handleChange } = this.props;
+    let { level, changeLevels } = this.props;
     let { format } = this.state;
     return (
       <header className="Navbar">
