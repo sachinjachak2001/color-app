@@ -8,7 +8,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Navbar.css";
-// import { VerticalAlignBottom } from "@material-ui/icons";
 
 class Navbar extends Component {
   constructor(props) {
