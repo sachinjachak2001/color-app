@@ -20,6 +20,7 @@ const styles = {
     width: "100%",
     borderRadius: "5px",
     Overflow: "hidden",
+    marginBottom: "-2px",
   },
   title: {
     display: "flex",
@@ -52,7 +53,7 @@ function MiniPalette(props) {
     ></div>
   ));
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={props.handleClick}>
       <div className={classes.colors}>{miniColorBoxes}</div>
       <h5 className={classes.title}>
         {paletteName} <span className={classes.emoji}>{emoji}</span>
