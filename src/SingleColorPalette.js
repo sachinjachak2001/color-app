@@ -1,11 +1,15 @@
+import { hex } from "chroma-js";
 import React, { Component } from "react";
 import ColorBox from "./ColorBox";
+import Navbar from "./Navbar";
+import Fotter from "./Footer";
 
 class SingleColorPalette extends Component {
   constructor(props) {
     super(props);
     this._shades = this.gatherShades(this.props.palette, this.props.colorId);
-    console.log(this._shades);
+    this.state = { format: "hex" };
+    this.changeFormat = this.changeFormat.bind(this);
   }
   gatherShades(palette, colorToFilterBy) {
     let shades = [];
@@ -17,19 +21,25 @@ class SingleColorPalette extends Component {
     }
     return shades.slice(1);
   }
+  changeFormat(val) {
+    this.setState({ format: val });
+  }
   render() {
+    const { format } = this.state;
+    const { paletteName, emoji } = this.props.palette;
     const colorBoxes = this._shades.map((color) => (
       <ColorBox
         key={color.id}
         name={color.name}
-        background={color.hex}
+        background={color[format]}
         showLink={false}
       />
     ));
     return (
       <div className="Palette">
-        <h1>this is single color page</h1>
+        <Navbar handleChange={this.changeFormat} slider={false} />
         <div className="Palette-colors">{colorBoxes}</div>
+        <Fotter paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }
