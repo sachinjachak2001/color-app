@@ -1,4 +1,3 @@
-import { hex } from "chroma-js";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ColorBox from "./ColorBox";

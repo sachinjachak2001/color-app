@@ -10,7 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { Button, colors } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { ChromePicker } from "react-color";
 import DraggableColorBox from "./DraggableColorBox";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
@@ -148,8 +148,14 @@ class PaletteForm extends Component {
     this.props.savePalette(newPalette);
     this.props.history.push("/");
   }
+
+  removeColor(colorName) {
+    this.setState({
+      colors: this.state.colors.filter((color) => color.name !== colorName),
+    });
+  }
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     const { open, currentColor } = this.state;
     const { handleDrawerOpen, handleDrawerClose, updateCurrentColor } = this;
     return (
@@ -251,7 +257,12 @@ class PaletteForm extends Component {
           <div className={classes.drawerHeader} />
 
           {this.state.colors.map((color) => (
-            <DraggableColorBox color={color.color} name={color.name} />
+            <DraggableColorBox
+              key={color.name}
+              color={color.color}
+              name={color.name}
+              handleClick={() => this.removeColor(color.name)}
+            />
           ))}
         </main>
       </div>
