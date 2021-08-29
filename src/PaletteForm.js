@@ -12,8 +12,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Button } from "@material-ui/core";
 import { ChromePicker } from "react-color";
+import seedColors from "./seedColors";
 import DraggableColorBox from "./DraggableColorBox";
+import DraggableColorList from "./styles/DraggableColorList";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import { arrayMove } from "react-sortable-hoc";
 
 const drawerWidth = 400;
 
@@ -76,12 +79,15 @@ const styles = (theme) => ({
 });
 
 class PaletteForm extends Component {
+  static defaultProps = {
+    maxColors: 20,
+  };
   constructor(props) {
     super(props);
     this.state = {
       open: false,
       currentColor: "teal",
-      colors: [{ color: "blue", name: "blue" }],
+      colors: this.props.palettes[0].colors,
       newColorName: "",
       newPaletteName: "",
     };
@@ -89,6 +95,9 @@ class PaletteForm extends Component {
     this.addNewColor = this.addNewColor.bind(this);
     this.handlChange = this.handlChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.removeColor = this.removeColor.bind(this);
+    this.clearColor = this.clearColor.bind(this);
+    this.addRandomColor = this.addRandomColor.bind(this);
   }
 
   componentDidMount() {
@@ -154,10 +163,25 @@ class PaletteForm extends Component {
       colors: this.state.colors.filter((color) => color.name !== colorName),
     });
   }
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ colors }) => ({
+      colors: arrayMove(colors, oldIndex, newIndex),
+    }));
+  };
+  clearColor() {
+    this.setState({ colors: [] });
+  }
+  addRandomColor() {
+    const allColors = this.props.palettes.map((p) => p.colors).flat();
+    var rand = Math.floor(Math.random * allColors.length);
+    const randomColor = allColors[rand];
+    this.setState({ colors: [...this.state.colors, randomColor] });
+  }
   render() {
-    const { classes } = this.props;
-    const { open, currentColor } = this.state;
+    const { classes, maxColors } = this.props;
+    const { open, currentColor, colors } = this.state;
     const { handleDrawerOpen, handleDrawerClose, updateCurrentColor } = this;
+    const paletteIsFull = colors.length >= maxColors;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -216,10 +240,19 @@ class PaletteForm extends Component {
           <Divider />
           <Typography variant="h4"> Create Your Palette </Typography>
           <div>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.clearColor}
+            >
               Clear Palette
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.addRandomColor}
+              disabled={paletteIsFull}
+            >
               Random Color
             </Button>
           </div>
@@ -242,10 +275,11 @@ class PaletteForm extends Component {
             <Button
               variant="contained"
               color="primary"
-              style={{ backgroundColor: currentColor }}
+              style={{ backgroundColor: paletteIsFull ? "gray" : currentColor }}
               type="submit"
+              disabled={paletteIsFull}
             >
-              ADD COLOR
+              {paletteIsFull ? "PALETTE FULL" : "ADD COLOR"}
             </Button>
           </ValidatorForm>
         </Drawer>
@@ -255,15 +289,12 @@ class PaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-
-          {this.state.colors.map((color) => (
-            <DraggableColorBox
-              key={color.name}
-              color={color.color}
-              name={color.name}
-              handleClick={() => this.removeColor(color.name)}
-            />
-          ))}
+          <DraggableColorList
+            axis="xy"
+            colors={colors}
+            removeColor={this.removeColor}
+            onSortEnd={this.onSortEnd}
+          />
         </main>
       </div>
     );
