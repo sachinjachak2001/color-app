@@ -156,7 +156,7 @@ class PaletteForm extends Component {
           open={open}
           palettes={palettes}
           handleSubmit={handleSubmit}
-          handleDrawerOpen={xhandleDrawerOpen}
+          handleDrawerOpen={handleDrawerOpen}
         />
         <Drawer
           className={classes.drawer}
