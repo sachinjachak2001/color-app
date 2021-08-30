@@ -3,6 +3,9 @@ const drawerWidth = DRAWER_WIDTH;
 
 const styles = (theme) => ({
   root: { display: "flex" },
+  hide: {
+    display: "none",
+  },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,

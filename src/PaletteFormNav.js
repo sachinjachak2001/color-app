@@ -7,6 +7,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { AddToPhotos } from "@material-ui/icons";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import PaletteMetaForm from "./PaletteMetaForm";
@@ -32,7 +34,7 @@ class PaletteFormNav extends Component {
   }
   render() {
     const { classes, open, palettes, handleSubmit } = this.props;
-    const { newPaletteName } = this.state;
+
     return (
       <div className="root">
         <CssBaseline />
@@ -51,7 +53,7 @@ class PaletteFormNav extends Component {
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
             >
-              <MenuIcon />
+              <AddToPhotos />
             </IconButton>
             <Typography variant="h6" noWrap>
               Create A Palette
