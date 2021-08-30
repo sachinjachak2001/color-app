@@ -143,15 +143,20 @@ class PaletteForm extends Component {
   render() {
     const { classes, maxColors, palettes } = this.props;
     const { open, currentColor, colors } = this.state;
-    const { handleDrawerOpen, handleDrawerClose, updateCurrentColor } = this;
+    const {
+      handleDrawerOpen,
+      handleDrawerClose,
+      updateCurrentColor,
+      handleSubmit,
+    } = this;
     const paletteIsFull = colors.length >= maxColors;
     return (
       <div className={classes.root}>
         <PaletteFormNav
           open={open}
           palettes={palettes}
-          handleSubmit={this.handleSubmit}
-          handleDrawerOpen={this.handleDrawerOpen}
+          handleSubmit={handleSubmit}
+          handleDrawerOpen={xhandleDrawerOpen}
         />
         <Drawer
           className={classes.drawer}
