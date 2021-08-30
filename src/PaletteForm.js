@@ -9,7 +9,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Button } from "@material-ui/core";
 import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
-import DraggableColorList from "./styles/DraggableColorList";
+import DraggableColorList from "./DraggableColorList";
 import { arrayMove } from "react-sortable-hoc";
 
 const drawerWidth = 400;
