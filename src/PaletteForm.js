@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import clsx from "clsx";
+import { arrayMove } from "react-sortable-hoc";
 import { withStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { Button } from "@material-ui/core";
 import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import DraggableColorList from "./DraggableColorList";
-import { arrayMove } from "react-sortable-hoc";
+import clsx from "clsx";
 import styles from "./styles/PaletteFormStyles";
 
 class PaletteForm extends Component {
@@ -80,13 +80,18 @@ class PaletteForm extends Component {
   }
   render() {
     const { classes, maxColors, palettes } = this.props;
-    const { open, currentColor, colors } = this.state;
+    const { open, colors } = this.state;
     const {
       handleDrawerOpen,
       handleDrawerClose,
-      updateCurrentColor,
       handleSubmit,
+      clearColor,
+      addNewColor,
+      addRandomColor,
+      removeColor,
+      onSortEnd,
     } = this;
+
     const paletteIsFull = colors.length >= maxColors;
     return (
       <div className={classes.root}>
@@ -120,7 +125,7 @@ class PaletteForm extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={this.clearColor}
+                onClick={clearColor}
                 className={classes.button}
               >
                 Clear Palette
@@ -128,7 +133,7 @@ class PaletteForm extends Component {
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={this.addRandomColor}
+                onClick={addRandomColor}
                 disabled={paletteIsFull}
                 className={classes.button}
               >
@@ -137,7 +142,7 @@ class PaletteForm extends Component {
             </div>
             <ColorPickerForm
               paletteIsFull={paletteIsFull}
-              addNewColor={this.addNewColor}
+              addNewColor={addNewColor}
               colors={colors}
             />
           </div>
@@ -151,8 +156,8 @@ class PaletteForm extends Component {
           <DraggableColorList
             axis="xy"
             colors={colors}
-            removeColor={this.removeColor}
-            onSortEnd={this.onSortEnd}
+            removeColor={removeColor}
+            onSortEnd={onSortEnd}
             distance={20}
           />
         </main>

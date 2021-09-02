@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
-import styles from "./styles/MiniPaletteStyles";
 import { withStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
+import styles from "./styles/MiniPaletteStyles";
 
 class MiniPalette extends PureComponent {
   constructor(props) {
@@ -19,6 +19,7 @@ class MiniPalette extends PureComponent {
   }
   render() {
     const { classes, paletteName, emoji, colors } = this.props;
+    const { handleClick, deletePalette } = this;
     console.log("rendering", paletteName);
     const miniColorBoxes = colors.map((color) => (
       <div
@@ -28,11 +29,11 @@ class MiniPalette extends PureComponent {
       ></div>
     ));
     return (
-      <div className={classes.root} onClick={this.handleClick}>
+      <div className={classes.root} onClick={handleClick}>
         <DeleteIcon
           className={classes.deletIcon}
           style={{ transition: "all 0.3s ease-in-out" }}
-          onClick={this.deletePalette}
+          onClick={deletePalette}
         />
 
         <div className={classes.colors}>{miniColorBoxes}</div>

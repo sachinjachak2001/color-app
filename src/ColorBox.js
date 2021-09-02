@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { withStyles } from "@material-ui/core/styles";
-import styles from "./styles/ColorBoxStyles";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import styles from "./styles/ColorBoxStyles";
 
 class ColorBox extends Component {
   constructor(props) {
@@ -22,9 +22,10 @@ class ColorBox extends Component {
     const { name, background, moreUrl, showingFullPalette, classes } =
       this.props;
     const { copied } = this.state;
+    const { handleCopy } = this;
 
     return (
-      <CopyToClipboard text={background} onCopy={this.handleCopy}>
+      <CopyToClipboard text={background} onCopy={handleCopy}>
         <div style={{ background }} className={classes.ColorBox}>
           <div
             style={{ background }}

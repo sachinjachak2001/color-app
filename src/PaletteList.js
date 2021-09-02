@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { withStyles } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { red } from "@material-ui/core/colors";
 import CheckIcon from "@material-ui/icons/Check";
@@ -43,8 +43,9 @@ class PaletteList extends Component {
     this.closeDialog();
   }
   render() {
-    const { palettes, classes, deletePalette } = this.props;
+    const { palettes, classes } = this.props;
     const { openDeleteDialog } = this.state;
+    const { goToPalette, openDialog, closeDialog, handleDelete } = this;
     return (
       <div className={classes.root}>
         <div className={classes.container}>
@@ -60,9 +61,8 @@ class PaletteList extends Component {
               <CSSTransition key={palette.id} classNames="fade" timeout={500}>
                 <MiniPalette
                   {...palette}
-                  goToPalette={this.goToPalette}
-                  // handleDelete={deletePalette}
-                  openDialog={this.openDialog}
+                  goToPalette={goToPalette}
+                  openDialog={openDialog}
                   key={palette.id}
                   id={palette.id}
                 />
@@ -73,11 +73,11 @@ class PaletteList extends Component {
         <Dialog
           open={openDeleteDialog}
           arial-lablelledby="delete-dialog-title"
-          onClose={this.closeDialog}
+          onClose={closeDialog}
         >
           <DialogTitle id="delete-dialog-title">ARE YOU SURE??</DialogTitle>
           <List>
-            <ListItem button onClick={this.handleDelete}>
+            <ListItem button onClick={handleDelete}>
               <Avatar
                 style={{
                   backgroundColor: blue[100],
@@ -91,7 +91,7 @@ class PaletteList extends Component {
                 <ListItemText primary="Delete" />
               </ListItemAvatar>
             </ListItem>
-            <ListItem button onClick={this.closeDialog}>
+            <ListItem button onClick={closeDialog}>
               <Avatar
                 style={{
                   backgroundColor: red[100],

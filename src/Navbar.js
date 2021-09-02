@@ -25,8 +25,9 @@ class Navbar extends Component {
     this.props.handleChange(e.target.value);
   }
   render() {
-    let { level, changeLevels, slider, classes } = this.props;
-    let { format } = this.state;
+    const { level, changeLevels, slider, classes } = this.props;
+    const { format, open } = this.state;
+    const { closeSnackbar } = this;
     return (
       <header className={classes.Navbar}>
         <div className={classes.logo}>
@@ -55,7 +56,7 @@ class Navbar extends Component {
         </div>
         <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          open={this.state.open}
+          open={open}
           autoHideDuration={3000}
           message={
             <span id="message-id">
@@ -63,10 +64,10 @@ class Navbar extends Component {
             </span>
           }
           ContentProps={{ "arial-describedby": "message-id" }}
-          onClose={this.closeSnackbar}
+          onClose={closeSnackbar}
           action={[
             <IconButton
-              onClick={this.closeSnackbar}
+              onClick={closeSnackbar}
               color="inherit"
               key="close"
               aria-label="close"

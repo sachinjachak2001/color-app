@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import Fotter from "./Footer";
 import styles from "./styles/PaletteStyles";
-import { withStyles } from "@material-ui/core/styles";
 
 class SingleColorPalette extends Component {
   constructor(props) {
@@ -30,6 +30,7 @@ class SingleColorPalette extends Component {
     const { format } = this.state;
     const { paletteName, emoji, id } = this.props.palette;
     const { classes } = this.props;
+    const { changeFormat } = this;
     const colorBoxes = this._shades.map((color) => (
       <ColorBox
         key={color.name}
@@ -40,7 +41,7 @@ class SingleColorPalette extends Component {
     ));
     return (
       <div className={classes.Palette}>
-        <Navbar handleChange={this.changeFormat} slider={false} />
+        <Navbar handleChange={changeFormat} slider={false} />
         <div className={classes.colors}>
           {colorBoxes}
           <div className={classes.goBack}>
