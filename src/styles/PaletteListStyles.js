@@ -62,4 +62,5 @@ export default {
       gridGap: "1.5rem",
     },
   },
+  
 };
