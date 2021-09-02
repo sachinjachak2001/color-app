@@ -1,6 +1,5 @@
 import sizes from "./sizes";
 import bg from "./bg.svg";
-import { purple } from "@material-ui/core/colors";
 export default {
   "@global": {
     ".fade-exit": {
@@ -62,5 +61,4 @@ export default {
       gridGap: "1.5rem",
     },
   },
-  
 };

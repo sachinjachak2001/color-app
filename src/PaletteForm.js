@@ -10,6 +10,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import DraggableColorList from "./DraggableColorList";
+import seedColors from "./seedColors";
 import clsx from "clsx";
 import styles from "./styles/PaletteFormStyles";
 
@@ -21,7 +22,7 @@ class PaletteForm extends Component {
     super(props);
     this.state = {
       open: false,
-      colors: this.props.palettes[0].colors,
+      colors: seedColors[0].colors,
     };
     this.addNewColor = this.addNewColor.bind(this);
     this.handlChange = this.handlChange.bind(this);
@@ -51,8 +52,8 @@ class PaletteForm extends Component {
     });
   }
   handleSubmit(newPalette) {
-    (newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-")),
-      (newPalette.colors = this.state.colors);
+    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");
+    newPalette.colors = this.state.colors;
     this.props.savePalette(newPalette);
     this.props.history.push("/");
   }
